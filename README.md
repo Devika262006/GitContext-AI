@@ -1,305 +1,386 @@
+```markdown
 # 🧠 GitContext-AI
 
-### End-to-End Codebase Intelligence & Developer Copilot using Hybrid RAG
+### 🚀 AI-Powered Codebase Intelligence & Developer Copilot using Hybrid RAG
 
-GitContext-AI is an intelligent codebase assistant that understands software repositories and provides accurate, context-aware answers to developer questions.
+<p align="center">
+  <b>Understand. Search. Reason. Navigate your codebase with AI.</b>
+</p>
 
-It combines **AST-based code understanding, semantic search, BM25 keyword search, hybrid retrieval, reranking, and Gemini-powered RAG** to retrieve relevant code and generate grounded answers.
+<p align="center">
+
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi)
+![Gemini](https://img.shields.io/badge/LLM-Google%20Gemini-4285F4)
+![Qdrant](https://img.shields.io/badge/Vector%20DB-Qdrant-red)
+![Tests](https://img.shields.io/badge/Tests-8%2F8%20Passed-success)
+![Retrieval](https://img.shields.io/badge/Retrieval%20Accuracy-100%25-brightgreen)
+
+</p>
 
 ---
 
-## 🚀 Key Features
+## 🎯 What is GitContext-AI?
 
-- 🔗 GitHub repository ingestion
-- 📂 Intelligent source-code discovery
-- 🌳 AST-based Python code parsing
-- ✂️ Structure-aware code chunking
-- 🧠 Semantic embeddings using FastEmbed
-- 🔎 Vector search using Qdrant
-- 🔤 BM25 keyword search
-- 🔀 Hybrid semantic + keyword retrieval
-- 🎯 Cross-encoder reranking
-- 🤖 Gemini-powered RAG answer generation
-- 📌 Dynamic source-code citations
-- 👀 Expandable "View Code" source snippets
-- 📊 Query performance metrics
-- 📈 Retrieval quality evaluation
-- 🧪 Automated test suite
-- ⚡ FastAPI backend
-- 💻 Interactive developer dashboard
-- 🔐 Environment-variable based secret management
+**GitContext-AI** is an AI-powered developer copilot that allows developers to understand and search their codebase using natural language.
+
+It combines **AST-based code understanding, semantic search, BM25, hybrid retrieval, reranking, and Gemini RAG** to provide relevant and grounded answers with source citations.
+
+Example:
+
+> **"How does UserManager create a user?"**
+
+---
+
+## 💡 Problem Statement
+
+Large codebases contain thousands of lines of code across multiple files and modules. Finding the correct implementation using traditional keyword search can be difficult when the developer does not know the exact function, class, or file name.
+
+### 🚀 Solution
+
+```text
+Natural Language Question
+          ↓
+Code Understanding
+          ↓
+Hybrid Retrieval
+          ↓
+Reranking
+          ↓
+Relevant Code Context
+          ↓
+Gemini RAG
+          ↓
+Answer + Source Citations
+```
+
+---
+
+## ✨ Key Features
+
+- 🔗 **GitHub Repository Intelligence** – Repository ingestion and file discovery
+- 🧠 **AST Code Understanding** – Functions, classes, methods and structure
+- 🔎 **Semantic Search** – Vector-based code retrieval
+- 🔤 **BM25 Search** – Keyword-based retrieval
+- 🔀 **Hybrid Retrieval** – Combines semantic + keyword search
+- 🎯 **Cross-Encoder Reranking** – Improves result relevance
+- 🤖 **Gemini RAG** – Generates context-grounded answers
+- 📌 **Source Citations** – File paths, lines and code snippets
+- 📊 **Retrieval Evaluation** – Precision@3, Recall@3, MRR and Accuracy
+- 🧪 **Automated Testing** – 8/8 tests passed
+
+---
+
+## 🏆 Why GitContext-AI?
+
+| Capability | Status |
+|---|:---:|
+| Natural-language code queries | ✅ |
+| AST-based code understanding | ✅ |
+| Semantic search | ✅ |
+| BM25 keyword search | ✅ |
+| Hybrid retrieval | ✅ |
+| Cross-encoder reranking | ✅ |
+| Gemini RAG | ✅ |
+| Source citations | ✅ |
+| Automated testing | ✅ |
 
 ---
 
 ## 🏗️ System Architecture
+
 ![GitContext-AI System Architecture](docs/gitcontext-ai-architecture.png)
 
 ```text
-                 ┌──────────────────────┐
-                 │   GitHub Repository  │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Repository Ingestion │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ File Discovery       │
-                 │ & Filtering          │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ AST Code Parser      │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Code Chunking        │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ FastEmbed            │
-                 │ BGE-small-en-v1.5    │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Qdrant Vector Store  │
-                 └──────────┬───────────┘
-                            │
-                 ┌──────────┴──────────┐
-                 ▼                     ▼
-        ┌────────────────┐    ┌────────────────┐
-        │ Vector Search  │    │ BM25 Search    │
-        └───────┬────────┘    └───────┬────────┘
-                │                     │
-                └──────────┬──────────┘
-                           ▼
-                 ┌──────────────────────┐
-                 │ Hybrid Retrieval     │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Cross Encoder        │
-                 │ Reranking            │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Gemini RAG Generator │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ FastAPI Backend      │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │ Web Developer UI     │
-                 └──────────────────────┘
+GitHub Repository
+       ↓
+Repository Ingestion
+       ↓
+File Discovery & AST Parsing
+       ↓
+Code Chunking
+       ↓
+FastEmbed
+       ↓
+Qdrant Vector Store
+       ↓
+Semantic Search + BM25
+       ↓
+Hybrid Retrieval
+       ↓
+Cross-Encoder Reranking
+       ↓
+Gemini RAG
+       ↓
+FastAPI
+       ↓
+Developer Dashboard
+```
 
-🛠️ Technology Stack
-Layer	Technology
-Frontend	HTML, CSS, JavaScript
-Backend	FastAPI
-Language	Python 3.12
-LLM	Google Gemini
-Embeddings	FastEmbed
-Embedding Model	BAAI/bge-small-en-v1.5
-Vector Database	Qdrant
-Keyword Search	BM25
-Reranking	Cross Encoder
-Code Understanding	Python AST
-Testing	Pytest
-Version Control	Git & GitHub
+---
 
+## 🔄 How It Works
 
-📁 Project Structure
-GitContext-AI/
-│
-├── backend/
-│   └── main.py
-│
-├── ingestion/
-│   ├── github_loader.py
-│   ├── file_discovery.py
-│   ├── code_parser.py
-│   ├── code_chunker.py
-│   ├── document_schema.py
-│   └── embedding_generator.py
-│
-├── retrieval/
-│   ├── vector_store.py
-│   ├── vector_search.py
-│   ├── bm25_search.py
-│   ├── hybrid_search.py
-│   ├── reranker.py
-│   └── retrieval_pipeline.py
-│
-├── llm/
-│   ├── llm_client.py
-│   └── rag_generator.py
-│
-├── evaluation/
-│   └── retrieval_evaluation.py
-│
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── tests/
-│   ├── conftest.py
-│   ├── test_parser.py
-│   ├── test_chunker.py
-│   ├── test_retrieval.py
-│   ├── test_evaluation.py
-│   └── test_api.py
-│
-├── data/
-├── requirements.txt
-├── .env.example
-├── .gitignore
-└── README.md
+1. **Ingest** – Load the GitHub repository.
+2. **Understand** – Parse source code using Python AST.
+3. **Chunk** – Create structure-aware code chunks.
+4. **Embed** – Generate 384-dimensional embeddings using `BAAI/bge-small-en-v1.5`.
+5. **Store** – Store embeddings in Qdrant.
+6. **Retrieve** – Combine semantic search and BM25.
+7. **Rerank** – Rank results using a cross-encoder.
+8. **Generate** – Use Gemini RAG to create a grounded answer.
+9. **Cite** – Return relevant files, lines and source code.
 
-⚙️ Installation
-1. Clone the repository
-git clone https://github.com/Devika262006/GitContext-AI.git
-cd GitContext-AI
+---
 
-2. Create virtual environment
-python -m venv venv
+## 🖥️ Developer Dashboard
 
-3. Activate virtual environment
-Windows
-venv\Scripts\activate
+- 💬 Natural-language queries
+- 🤖 AI-generated answers
+- 📂 Dynamic source citations
+- 👀 Expandable code snippets
+- 📊 Query insights
+- 📈 Retrieval quality metrics
+- 🔄 Retrieval pipeline visualization
 
-4. Install dependencies
-pip install -r requirements.txt
+![GitContext-AI Dashboard](screenshots/gitcontext-ai-dashboard.png)
 
-🔐 Environment Configuration
-Create a .env file:
-GITHUB_TOKEN=your_github_token_here
+---
 
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-3.5-flash-lite
+## 📊 System Performance
 
-QDRANT_URL=http://localhost:6333
-QDRANT_API_KEY=
+| Metric | Result |
+|---|---:|
+| Precision@3 | **33%** |
+| Recall@3 | **100%** |
+| MRR | **75%** |
+| Retrieval Accuracy | **100%** |
+| Automated Tests | **8/8 Passed** |
+| Sample Response | **~1.58s** |
 
-EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
+---
 
-Never commit your .env file or API keys to GitHub.
+## 🔍 Example Query
 
-▶️ Running the Backend
-Activate the virtual environment:
-venv\Scripts\activate
+**Question**
 
-Start FastAPI:
-uvicorn backend.main:app --reload
-
-Backend:
-http://127.0.0.1:8000
-
-Swagger API documentation:
-http://127.0.0.1:8000/docs
-
-💻 Running the Frontend
-Open:
-frontend/index.html
-
-using VS Code Live Server.
-The frontend communicates with the FastAPI backend through the /ask endpoint.
-🔍 Example Questions
-GitContext-AI can answer questions such as:
+```text
 How does UserManager create a user?
+```
 
-Where is the authentication logic implemented?
+**Retrieved Source**
 
-What does this function do?
+```text
+File: data/sample_test.py
+Element: create_user
+Lines: 3-4
+Type: method
+```
 
-Which file contains the database logic?
+The system retrieves the relevant code, reranks it, and generates a grounded explanation using Gemini.
 
-Explain the main class in this project.
+---
 
-How does data flow through this function?
+## 🔄 Complete RAG Pipeline
 
-📊 Retrieval Evaluation
-The system includes an automated retrieval evaluation module.
-Current evaluation metrics:
-Metric	Result
-Precision@3	33%
-Recall@3	100%
-MRR	75%
-Retrieval Accuracy	100%
-
-
-These metrics are displayed directly in the developer dashboard.
-🧪 Automated Testing
-Run the complete test suite:
-pytest -v
-
-Current test status:
-8 passed
-
-Test coverage includes:
-- API endpoints
-- Python AST parser
-- Code chunking
-- Retrieval pipeline
-- Retrieval evaluation
-🔄 RAG Pipeline
+```text
 User Question
       ↓
-Vector Search
-      +
-BM25 Keyword Search
+Semantic Search + BM25
       ↓
 Hybrid Retrieval
       ↓
 Cross-Encoder Reranking
       ↓
-Top Relevant Code
+Relevant Code Context
       ↓
-Gemini
+Gemini RAG
       ↓
-Grounded Answer
-      ↓
-Source Citations
+Grounded Answer + Sources
+```
 
-🎯 Why GitContext-AI?
-Traditional code search mainly depends on exact keyword matching.
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology |
+|---|---|
+| Language | Python 3.12 |
+| Frontend | HTML, CSS, JavaScript |
+| Backend | FastAPI |
+| LLM | Google Gemini |
+| Embeddings | FastEmbed |
+| Vector Database | Qdrant |
+| Keyword Search | BM25 |
+| Reranking | Cross Encoder |
+| Code Analysis | Python AST |
+| Testing | Pytest |
+| Version Control | Git & GitHub |
+
+---
+
+## 📁 Project Structure
+
+```text
+GitContext-AI/
+├── backend/
+├── data/
+├── docs/
+├── evaluation/
+├── frontend/
+├── ingestion/
+├── llm/
+├── retrieval/
+├── tests/
+├── .env.example
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
+
+---
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/Devika262006/GitContext-AI.git
+cd GitContext-AI
+
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+---
+
+## 🔐 Environment Configuration
+
+Create a `.env` file:
+
+```env
+GITHUB_TOKEN=your_github_token_here
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-3.5-flash-lite
+QDRANT_URL=http://localhost:6333
+QDRANT_API_KEY=
+EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
+```
+
+**Never commit `.env` to GitHub.**
+
+---
+
+## ▶️ Running Backend
+
+```bash
+venv\Scripts\activate
+uvicorn backend.main:app --reload
+```
+
+**Backend:** `http://127.0.0.1:8000`
+
+**Swagger:** `http://127.0.0.1:8000/docs`
+
+---
+
+## 🔌 API Documentation
+
+### `POST /ask`
+
+```json
+{
+  "question": "How does UserManager create a user?"
+}
+```
+
+### `GET /evaluation`
+
+Returns:
+
+- Precision@3
+- Recall@3
+- MRR
+- Retrieval Accuracy
+
+---
+
+## 🧪 Automated Testing
+
+Run:
+
+```bash
+pytest -v
+```
+
+Result:
+
+```text
+8 passed
+```
+
+---
+
+## 📈 Retrieval Evaluation
+
+| Metric | Result |
+|---|---:|
+| Precision@3 | **33%** |
+| Recall@3 | **100%** |
+| MRR | **75%** |
+| Retrieval Accuracy | **100%** |
+
+---
+
+## 🔐 Security
+
+- 🔒 API keys stored in environment variables
+- 🚫 `.env` excluded from Git
+- 🚫 Local Qdrant storage excluded
+- 🚫 Local repository data excluded
+- 🔑 No hardcoded secrets
+
+---
+
+## 🚀 Future Enhancements
+
+- 🌐 Multi-language code intelligence
+- 🐙 GitHub Pull Request analysis
+- 🔍 Vulnerability detection
+- 🤖 Automated code review
+- 🐛 Agentic debugging
+- 🕸️ Dependency graph generation
+- 📚 Multi-repository intelligence
+- 🐳 Docker deployment
+- ☁️ Cloud Qdrant
+- 🔄 Continuous repository indexing
+
+---
+
+## 🎓 Research & Learning Value
+
 GitContext-AI combines:
-Semantic Understanding + Keyword Search + Reranking + LLM Reasoning
-This allows developers to ask natural-language questions about a codebase instead of manually searching through multiple files.
-🔒 Security
-- API keys are stored using environment variables.
-- .env is excluded through .gitignore.
-- Local Qdrant storage is excluded from Git.
-- Repository data is excluded from Git.
-- Sensitive credentials are never stored in source code.
-🌟 Future Enhancements
-- Multi-language AST support
-- GitHub pull-request analysis
-- Code vulnerability detection
-- Automated code review
-- Repository-level dependency graphs
-- Agentic debugging
-- Docker deployment
-- Cloud-hosted Qdrant
-- Multi-repository intelligence
-- Developer productivity analytics
-👩‍💻 Author
-Devika S
-B.Tech Artificial Intelligence & Machine Learning
-IFET College of Engineering
-GitHub:
-https://github.com/Devika262006
-📄 License
-This project is developed for educational, research, and portfolio purposes.
+
+**Artificial Intelligence • NLP • Information Retrieval • Vector Databases • LLMs • RAG • API Development • Automated Testing**
+
+Suitable for:
+
+- 🎓 Final-year projects
+- 🤖 AI/ML portfolios
+- 🔎 RAG projects
+- 💻 Developer portfolios
+- 📚 Academic demonstrations
+
+---
+
+## 👩‍💻 Author
+
+### Devika S
+
+**B.Tech Artificial Intelligence & Machine Learning**  
+**IFET College of Engineering**
+
+**GitHub:** https://github.com/Devika262006
+
+**LinkedIn:** https://www.linkedin.com/in/devika-s-6880602b4
+```
