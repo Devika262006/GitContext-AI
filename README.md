@@ -32,6 +32,7 @@ It combines **AST-based code understanding, semantic search, BM25 keyword search
 ---
 
 ## 🏗️ System Architecture
+![GitContext-AI System Architecture](docs/gitcontext-ai-architecture.png)
 
 ```text
                  ┌──────────────────────┐
