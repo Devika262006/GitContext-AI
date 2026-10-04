@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>GitContext-AI</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    &lt;/&gt;
+                </div>
+
+                <div class="brand-text">
+
+                    <span class="brand-name">
+                        GitContext-AI
+                    </span>
+
+                    <span class="brand-subtitle">
+                        Code Intelligence
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="nav-status">
+
+                <span class="status-dot"></span>
+
+                <span>
+                    System Online
+                </span>
+
+                <span class="version">
+                    v1.0
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-container">
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                AI-POWERED CODEBASE INTELLIGENCE
+            </div>
+
+
+            <h1>
+                Understand your
+                <span>entire codebase.</span>
+            </h1>
+
+
+            <p>
+                Ask questions about your repository and get
+                intelligent answers grounded in your actual source code.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= SEARCH ================= -->
+
+        <section class="search-section">
+
+            <div class="search-card">
+
+
+                <div class="search-header">
+
+                    <div>
+
+                        <span class="search-label">
+                            ASK YOUR CODEBASE
+                        </span>
+
+                        <h2>
+                            What would you like to know?
+                        </h2>
+
+                    </div>
+
+
+                    <div class="model-badge">
+
+                        <span class="model-dot"></span>
+
+                        Gemini
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="input-wrapper">
+
+                    <textarea
+                        id="questionInput"
+                        placeholder="Example: How does UserManager create a user?"
+                        rows="4"
+                    ></textarea>
+
+
+                    <div class="input-footer">
+
+                        <span class="keyboard-hint">
+                            Ctrl + Enter to ask
+                        </span>
+
+
+                        <button
+                            id="askButton"
+                            class="ask-button"
+                            type="button"
+                        >
+
+                            <span>
+                                Ask GitContext
+                            </span>
+
+                            <span class="arrow">
+                                →
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Example Questions -->
+
+                <div class="example-section">
+
+                    <span class="example-label">
+                        TRY AN EXAMPLE
+                    </span>
+
+
+                    <div class="example-questions">
+
+                        <button type="button">
+                            How does UserManager create a user?
+                        </button>
+
+                        <button type="button">
+                            What functions are available in the code?
+                        </button>
+
+                        <button type="button">
+                            Explain the main classes in this project.
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= EMPTY STATE ================= -->
+
+        <section
+            id="emptyState"
+            class="empty-state"
+        >
+
+            <div class="empty-icon">
+                &lt;/&gt;
+            </div>
+
+
+            <h3>
+                Your codebase is ready
+            </h3>
+
+
+            <p>
+                Ask a question above to explore your repository
+                using AI-powered code intelligence.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================= LOADING ================= -->
+
+        <section
+            id="loading"
+            class="loading-card hidden"
+        >
+
+            <div class="loader"></div>
+
+
+            <div class="loading-content">
+
+                <h3>
+                    Analyzing your codebase...
+                </h3>
+
+
+                <p id="loadingStatus">
+                    Starting code intelligence pipeline...
+                </p>
+
+
+                <div class="loading-steps">
+
+
+                    <div
+                        class="loading-step active"
+                        id="loadingStep1"
+                    >
+
+                        <span class="step-check">
+                            ●
+                        </span>
+
+                        <span>
+                            Searching repository
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="loading-step"
+                        id="loadingStep2"
+                    >
+
+                        <span class="step-check">
+                            ○
+                        </span>
+
+                        <span>
+                            Finding relevant code
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="loading-step"
+                        id="loadingStep3"
+                    >
+
+                        <span class="step-check">
+                            ○
+                        </span>
+
+                        <span>
+                            Reranking results
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="loading-step"
+                        id="loadingStep4"
+                    >
+
+                        <span class="step-check">
+                            ○
+                        </span>
+
+                        <span>
+                            Generating Gemini answer
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= RESULTS ================= -->
+
+        <section
+            id="resultSection"
+            class="result-section hidden"
+        >
+
+
+            <!-- ================= AI ANSWER ================= -->
+
+            <div class="answer-card">
+
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            AI RESPONSE
+                        </span>
+
+                        <h2>
+                            Codebase Analysis
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        id="copyButton"
+                        class="copy-button"
+                        type="button"
+                    >
+                        Copy
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="answer"
+                    class="answer-content"
+                ></div>
+
+            </div>
+
+
+
+            <!-- ================= SOURCES ================= -->
+
+            <div class="sources-card">
+
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            SOURCE CITATIONS
+                        </span>
+
+                        <h2>
+                            Retrieved Code
+                        </h2>
+
+                    </div>
+
+
+                    <span class="source-count">
+                        RAG
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="sources"
+                    class="sources-container"
+                ></div>
+
+            </div>
+
+
+
+            <!-- ================= QUERY INSIGHTS ================= -->
+
+            <div class="query-insights">
+
+
+                <div class="insights-header">
+
+                    <div>
+
+                        <span class="insights-label">
+                            QUERY INSIGHTS
+                        </span>
+
+                        <h3>
+                            Performance Overview
+                        </h3>
+
+                    </div>
+
+
+                    <span class="insights-status">
+                        ● Live
+                    </span>
+
+                </div>
+
+
+
+                <div class="insights-grid">
+
+
+                    <!-- Response Time -->
+
+                    <div class="insight-card">
+
+                        <div class="insight-icon">
+                            ⚡
+                        </div>
+
+
+                        <div>
+
+                            <span class="insight-title">
+                                Response Time
+                            </span>
+
+
+                            <strong id="responseTime">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Sources Retrieved -->
+
+                    <div class="insight-card">
+
+                        <div class="insight-icon">
+                            📚
+                        </div>
+
+
+                        <div>
+
+                            <span class="insight-title">
+                                Sources Retrieved
+                            </span>
+
+
+                            <strong id="sourcesRetrieved">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Final Results -->
+
+                    <div class="insight-card">
+
+                        <div class="insight-icon">
+                            🎯
+                        </div>
+
+
+                        <div>
+
+                            <span class="insight-title">
+                                Final Results
+                            </span>
+
+
+                            <strong id="finalResults">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AI Model -->
+
+                    <div class="insight-card">
+
+                        <div class="insight-icon">
+                            🤖
+                        </div>
+
+
+                        <div>
+
+                            <span class="insight-title">
+                                AI Model
+                            </span>
+
+
+                            <strong id="modelName">
+                                --
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= RETRIEVAL QUALITY ================= -->
+
+            <div class="retrieval-quality">
+
+
+                <div class="quality-header">
+
+                    <div>
+
+                        <span class="quality-label">
+                            RETRIEVAL QUALITY
+                        </span>
+
+
+                        <h3>
+                            Search Performance
+                        </h3>
+
+                    </div>
+
+
+                    <span class="quality-badge">
+                        Evaluation
+                    </span>
+
+                </div>
+
+
+
+                <div class="quality-grid">
+
+
+                    <!-- Precision -->
+
+                    <div class="quality-card">
+
+                        <div class="quality-icon">
+                            🎯
+                        </div>
+
+
+                        <div class="quality-content">
+
+                            <span class="quality-title">
+                                Precision@3
+                            </span>
+
+
+                            <strong id="precisionScore">
+                                --
+                            </strong>
+
+
+                            <span class="quality-description">
+                                Relevant results
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Recall -->
+
+                    <div class="quality-card">
+
+                        <div class="quality-icon">
+                            🔎
+                        </div>
+
+
+                        <div class="quality-content">
+
+                            <span class="quality-title">
+                                Recall@3
+                            </span>
+
+
+                            <strong id="recallScore">
+                                --
+                            </strong>
+
+
+                            <span class="quality-description">
+                                Expected code found
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- MRR -->
+
+                    <div class="quality-card">
+
+                        <div class="quality-icon">
+                            📈
+                        </div>
+
+
+                        <div class="quality-content">
+
+                            <span class="quality-title">
+                                MRR
+                            </span>
+
+
+                            <strong id="mrrScore">
+                                --
+                            </strong>
+
+
+                            <span class="quality-description">
+                                Ranking quality
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- Retrieval Accuracy -->
+
+                    <div class="quality-card">
+
+                        <div class="quality-icon">
+                            ✅
+                        </div>
+
+
+                        <div class="quality-content">
+
+                            <span class="quality-title">
+                                Retrieval Accuracy
+                            </span>
+
+
+                            <strong id="retrievalAccuracy">
+                                --
+                            </strong>
+
+
+                            <span class="quality-description">
+                                Successful queries
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= RETRIEVAL PIPELINE ================= -->
+
+            <div class="pipeline-card">
+
+
+                <div class="section-header">
+
+                    <div>
+
+                        <span class="section-label">
+                            RETRIEVAL PIPELINE
+                        </span>
+
+
+                        <h2>
+                            How GitContext-AI answered
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="pipeline">
+
+
+                    <div class="pipeline-step">
+
+                        <div class="pipeline-icon">
+                            01
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Semantic Search
+                            </strong>
+
+
+                            <span>
+                                Vector similarity search
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="pipeline-arrow">
+                        →
+                    </div>
+
+
+
+                    <div class="pipeline-step">
+
+                        <div class="pipeline-icon">
+                            02
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Keyword Search
+                            </strong>
+
+
+                            <span>
+                                BM25 lexical retrieval
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="pipeline-arrow">
+                        →
+                    </div>
+
+
+
+                    <div class="pipeline-step">
+
+                        <div class="pipeline-icon">
+                            03
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Hybrid Retrieval
+                            </strong>
+
+
+                            <span>
+                                Combined relevance
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="pipeline-arrow">
+                        →
+                    </div>
+
+
+
+                    <div class="pipeline-step">
+
+                        <div class="pipeline-icon">
+                            04
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Reranking
+                            </strong>
+
+
+                            <span>
+                                Cross-encoder scoring
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="pipeline-arrow">
+                        →
+                    </div>
+
+
+
+                    <div class="pipeline-step">
+
+                        <div class="pipeline-icon">
+                            05
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Gemini
+                            </strong>
+
+
+                            <span>
+                                Grounded AI answer
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <span>
+                GitContext-AI
+            </span>
+
+
+            <span>
+                AI-powered codebase intelligence
+            </span>
+
+
+            <span>
+                Built with FastAPI · Qdrant · Gemini
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
